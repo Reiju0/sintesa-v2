@@ -1,0 +1,48 @@
+
+### INSERT
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+    "id": 5,
+    "name": "Nora",
+    "email": "Nora@gmail.com",
+    "gender": "Male",
+    "createdAt": "2023-01-02 09:14:28",
+    "updatedAt": "2023-01-02 09:14:28"
+}
+
+### READ
+GET http://localhost:8000/users
+
+### READ BY ID
+GET http://localhost:8000/users/5
+
+### UPDATE
+PUT http://localhost:8000/users/7
+Content-Type: application/json
+
+{
+    "id": 7,
+    "name": "kuroashi",
+    "email": "kuro@gmail.com",
+    "gender": "Male",
+    "createdAt": "2023-06-02 09:14:28",
+    "updatedAt": "2023-06-02 09:14:28"
+}
+
+### DELETE
+DELETE http://localhost:8000/users/5
+
+###
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+    "jenis_tkd": "01",
+    "nd_djpk": "ND-1449/PK.2/2022",
+    "tgl_nd_djpk": "2023-06-28 09:14:28",
+    "nd_ditpa": "ND-1500/PB.2/2023",
+    "tgl_nd_ditpa": "2023-06-28 09:14:28",
+    "file_nd_ditpa": "nd_ditpa_dau.pdf"
+}
