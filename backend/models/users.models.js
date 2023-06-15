@@ -44,3 +44,16 @@ export const deleteData = (id, callback) => {
   const queryData = "DELETE FROM rekom_ditpa WHERE id = ?";
   Connection.query(queryData, id, callback);
 };
+
+//test tampil join table
+export const tampilOlah = (callback) => {
+  const queryData =
+    "SELECT NO_ND,TANGGAL_ND, NO_SP2D, TGL_SP2D, nd_ditpa, DATE_FORMAT(tgl_nd_ditpa, '%d-%m-20%y') as tanggal_nd_ditpa, DATEDIFF(CONCAT(right(TGL_SP2D, 4),'-', month(STR_TO_DATE(TGL_SP2D, '%d-%m-%y')),'-', day(STR_TO_DATE(TGL_SP2D, '%d-%m-%y'))), rekom_ditpa.tgl_nd_ditpa) AS SELISIH from Table_DAU  LEFT JOIN rekom_ditpa ON Table_DAU.NO_ND = rekom_ditpa.nd_djpk;";
+  Connection.query(queryData, callback);
+};
+
+//test tampil distinct
+export const distinctReff = (callback) => {
+  const queryData = "SELECT distinct NO_ND FROM Table_DAU;";
+  Connection.query(queryData, callback);
+};

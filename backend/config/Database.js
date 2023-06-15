@@ -7,14 +7,13 @@ const Connection = createConnection({
   database: "db_server",
 });
 
-// connection
-// Connection.connect((err) => {
-//   if (err) {
-//     console.log("gagal terhubung ke database!");
-//   } else {
-//     console.log("Terhubung ke Database!");
-//   }
-// });
+Connection.connect((err) => {
+  if (err) {
+    console.log("gagal terhubung ke database!");
+  } else {
+    console.log("Terhubung ke Database!");
+  }
+});
 
 //async connection
 

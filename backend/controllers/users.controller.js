@@ -4,6 +4,8 @@ import {
   tampilData,
   tampilDataID,
   updateData,
+  tampilOlah,
+  distinctReff,
 } from "../models/users.models.js";
 
 //controller request all data
@@ -83,6 +85,32 @@ export const deleteUser = (req, res) => {
         console.log("data tidak ditemukan");
         res.status(404).json({ msg: "User not found!" });
       }
+    }
+  });
+};
+
+//controller tampil olahan
+export const tampilJoin = (req, res) => {
+  tampilOlah((err, result) => {
+    if (err) {
+      console.log("Request Data Error! : ", err);
+      res.status(500).json({ msg: "Internal server error" });
+    } else {
+      console.log("tampil data berhasil");
+      res.status(200).json(result);
+    }
+  });
+};
+
+//controller reff nd
+export const tampilReff = (ref, res) => {
+  distinctReff((err, result) => {
+    if (err) {
+      console.log("Request Data Error! : ", err);
+      res.status(500).json({ msg: "Internal server error" });
+    } else {
+      console.log("tampil data berhasil");
+      res.status(200).json(result);
     }
   });
 };
