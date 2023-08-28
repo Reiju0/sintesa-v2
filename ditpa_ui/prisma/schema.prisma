@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model alokasi_dbh {
+  id            Int    @id @default(autoincrement())
+  thang         String @db.Char(4)
+  kdpemda       String @db.Char(4)
+  nmpemda       String @db.VarChar(255)
+  kdkppn        String @db.Char(3)
+  nmkppn        String @db.VarChar(255)
+  dbhcht        String @db.Char(18)
+  dbhpajak      String @db.Char(18)
+  dbhsda        String @db.Char(18)
+  total_alokasi String @db.Char(18)
+}
+
+model transaksi {
+  id              Int        @id @default(autoincrement())
+  thang           String     @db.Char(4)
+  kdpemda         String     @db.Char(4)
+  nmpemda         String     @db.VarChar(255)
+  kdkppn          String     @db.Char(3)
+  nmkppn          String     @db.VarChar(255)
+  kdjenis         String?    @db.Char(4)
+  nmjenis         String?    @db.VarChar(255)
+  periode         String     @db.Char(4)
+  nmperiode       String     @db.VarChar(255)
+  alokasi_periode String     @db.Char(18)
+  createdAt       DateTime?  @default(now()) @db.DateTime(0)
+  updatedAt       DateTime?  @updatedAt @db.DateTime(0)
+  potongan        potongan[]
+
+  @@unique([kdpemda, kdkppn, periode])
+  @@map("transaksi")
+}
+
+model potongan {
+  id        Int       @id @default(autoincrement())
+  thang     String    @db.Char(4)
+  kdpemda   String    @db.Char(4)
+  nmpemda   String    @db.VarChar(255)
+  kdkppn    String    @db.Char(3)
+  nmkppn    String    @db.VarChar(255)
+  kdjenis   String?   @db.Char(4)
+  nmjenis   String?   @db.VarChar(255)
+  periode   String    @db.Char(4)
+  nmperiode String    @db.VarChar(255)
+  potongan  String    @db.Char(18)
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
+  KDAKUN    String    @db.Char(6)
+  transaksi transaksi @relation(fields: [kdpemda, kdkppn, periode], references: [kdpemda, kdkppn, periode])
+
+  @@index([kdpemda, kdkppn, periode])
+  @@map("potongan")
+}
+
+model reff_akun {
+  id              Int     @id @default(autoincrement())
+  kdakun          String  @db.Char(6)
+  nmakun          String  @db.VarChar(255)
+  kdsatker        String? @db.Char(6)
+  nmsatker        String? @db.VarChar(255)
+  kdlokasi_potong String? @db.Char(4)
+  nmlokasi_potong String? @db.VarChar(255)
+
+  @@map("reff_akun")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model t_kppn_lok {
+  id        Int     @id @default(autoincrement())
+  kdkabkota String? @db.Char(4)
+  nmkabkota String? @db.Char(150)
+  kdkppn    String? @db.Char(3)
+  nmkppn    String? @db.Char(150)
+  kdkanwil  String? @db.Char(2)
+
+  @@map("t_kppn_lok")
+}
