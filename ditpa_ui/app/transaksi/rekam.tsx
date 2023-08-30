@@ -12,10 +12,14 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Chip } from "@nextui-org/chip";
 import { BsCheckLg } from "react-icons/bs";
-import type { transaksi } from "@prisma/client";
+import { reffPemdaKppn } from "../data/reff_kppn_pemda";
 
 export const RekamData = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const reffKPPN = reffPemdaKppn.filter((item, index, self) => {
+    const key = item.kdkppn + item.nmkppn;
+    return self.map((e) => e.kdkppn + e.nmkppn).indexOf(key) === index;
+  });
 
   return (
     <>
@@ -44,12 +48,14 @@ export const RekamData = () => {
                 <div>
                   <Select
                     variant="flat"
-                    placeholder="Pilih Akun"
+                    placeholder="Pilih KPPN"
                     size="sm"
-                    className="max-w-xs">
-                    <SelectItem key="akun" value="817111">
-                      817111
-                    </SelectItem>
+                    className="max-w-x">
+                    {reffKPPN.map((row: any) => (
+                      <SelectItem key={row.kdkppn} value={row.kdkppn}>
+                        ({row.kdkppn}) {row.nmkppn}
+                      </SelectItem>
+                    ))}
                   </Select>
                 </div>
 

@@ -2,24 +2,32 @@
 import Login from "../api/omspan/loginAPI";
 import FetchDataAPI from "../api/omspan/fetchDataAPI";
 import { useEffect, useState } from "react";
+import { typeBrand, typeProduk } from "@/types";
+import { UpdateData } from "./updateData";
+import HapusData from "./deleteData";
 
-const TabelAlokasiDBH = () => {
-  const [alokasiDBH, setAlokasiDBH] = useState([]);
-  const endpoint = "bersama/pemdakppnall";
-  const data = async () => {
-    try {
-      const token = await Login();
-      const detailData = await FetchDataAPI(endpoint, token);
-      setAlokasiDBH(detailData.data);
-    } catch (error) {
-      console.log("data gagal di ambil", error);
-    }
-  };
-  useEffect(() => {
-    data();
-  }, []);
+const TabelAlokasiDBH = ({
+  refProduk,
+  refBrand,
+}: {
+  refProduk: typeProduk[];
+  refBrand: typeBrand[];
+}) => {
+  // const [alokasiDBH, setAlokasiDBH] = useState([]);
+  // const endpoint = "bersama/pemdakppnall";
+  // const data = async () => {
+  //   try {
+  //     const token = await Login();
+  //     const detailData = await FetchDataAPI(endpoint, token);
+  //     setAlokasiDBH(detailData.data);
+  //   } catch (error) {
+  //     console.log("data gagal di ambil", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   data();
+  // }, []);
 
-  console.log(alokasiDBH);
   return (
     <>
       <div className="flex flex-col max-w-sm overflow-x-auto md:max-w-5xl">
@@ -33,26 +41,46 @@ const TabelAlokasiDBH = () => {
                       No.
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      Tahun
+                      Nama Produk
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      Pemda
+                      Nama Brand
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      KPPN
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Akun
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Nilai Potongan
+                      Harga
                     </th>
                     <th scope="col" className="px-6 py-4">
                       Aksi
                     </th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  {refProduk.map((row: any, i: number) => (
+                    <tr
+                      key={row.id}
+                      className="border-b dark:border-neutral-500">
+                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                        {i + 1}
+                      </td>
+                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                        {row.nmproduk}
+                      </td>
+                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                        {row.brand.nama}
+                      </td>
+                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                        {row.harga.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                      <td className="flex flex-row gap-3 px-6 py-4 font-light whitespace-nowrap">
+                        <UpdateData refBrand={refBrand} />
+                        <HapusData />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>

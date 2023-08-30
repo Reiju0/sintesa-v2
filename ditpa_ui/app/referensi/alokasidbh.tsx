@@ -2,11 +2,12 @@ import React from "react";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import TabelAlokasiDBH from "./tabelalokasiDBH";
-import { getRefBrand } from "../controller/refRekamTransaksi";
+import { getRefBrand, getProduk } from "../controller/refRekamTransaksi";
 import { AddData } from "./addData";
 
 const AlokasiDBH = async () => {
-  const refBrand = await getRefBrand();
+  const [Brand, Produk] = await Promise.all([getRefBrand(), getProduk()]);
+
   return (
     <>
       <Card className="max-w-[600]">
@@ -15,11 +16,11 @@ const AlokasiDBH = async () => {
         </CardHeader>
         <Divider />
         <CardHeader className="flex my-1 ml-4 font-bold justify-left">
-          <AddData refBrand={refBrand} />
+          <AddData refBrand={Brand} />
         </CardHeader>
         <Divider />
         <CardBody className="-mt-6">
-          <TabelAlokasiDBH />
+          <TabelAlokasiDBH refProduk={Produk} refBrand={Brand} />
         </CardBody>
       </Card>
     </>

@@ -10,12 +10,13 @@ import {
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { BsCheckLg } from "react-icons/bs";
+import { Chip } from "@nextui-org/chip";
 import { typeBrand } from "@/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BsFillPencilFill } from "react-icons/bs";
 
-export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
+export const UpdateData = ({ refBrand }: { refBrand: typeBrand[] }) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [formProduk, setFormProduk] = useState({
@@ -52,26 +53,25 @@ export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
     }
     router.refresh();
   };
-
   return (
     <>
       <Button
-        color="primary"
-        size="md"
-        radius="sm"
+        color="warning"
+        size="sm"
+        isIconOnly
+        radius="none"
         onPress={onOpen}
-        className="flex flex-row gap-2">
-        <BsCheckLg className="text-lg font-extrabold text-white" />
-        <p className="font-bold">Rekam</p>
+        className="rounded-full">
+        <BsFillPencilFill className="text-lg font-bold text-white" />
       </Button>
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <form action="" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <ModalContent>
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  Rekam Data Produk
+                  Update Data Potongan DBH
                 </ModalHeader>
                 <ModalBody>
                   <Input
@@ -108,7 +108,7 @@ export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
                     Batal
                   </Button>
                   <Button color="primary" onPress={onClose} type="submit">
-                    Simpan
+                    Update
                   </Button>
                 </ModalFooter>
               </>

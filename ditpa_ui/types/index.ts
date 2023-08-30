@@ -1,5 +1,4 @@
 import {SVGProps} from "react";
-import type { transaksi } from "@prisma/client";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -52,4 +51,11 @@ export type typeAkun = {
 export type typeBrand = {
   id: number;
   nama: string;
+}
+
+export type typeProduk = {
+  id: number;
+  nmproduk: string;
+  harga: number;
+  brandId: number;
 }
