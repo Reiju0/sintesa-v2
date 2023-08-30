@@ -85,3 +85,36 @@ model t_kppn_lok {
 
   @@map("t_kppn_lok")
 }
+
+model reff_periode {
+  id        Int     @id @default(autoincrement())
+  thang     String  @db.Char(4)
+  periode   String? @db.Char(4)
+  nmperiode String? @db.VarChar(255)
+  kdkppn    String? @db.Char(3)
+  nmkppn    String? @db.Char(150)
+  kdpemda   String  @db.Char(4)
+  nmpemda   String  @db.VarChar(255)
+
+  @@map("reff_periode")
+}
+
+model Brand {
+  id      Int      @id @default(autoincrement())
+  nama    String   @db.VarChar(128)
+  produks Produk[]
+
+  @@unique([id])
+  @@map("Brand")
+}
+
+model Produk {
+  id       Int    @id @default(autoincrement())
+  nmproduk String @db.VarChar(128)
+  harga    Int
+  brand    Brand  @relation(fields: [brandId], references: [id])
+  brandId  Int
+
+  @@index([brandId])
+  @@map("Produk")
+}

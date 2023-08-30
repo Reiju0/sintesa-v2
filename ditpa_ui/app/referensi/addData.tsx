@@ -10,23 +10,21 @@ import {
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { Chip } from "@nextui-org/chip";
 import { BsCheckLg } from "react-icons/bs";
-import type { transaksi } from "@prisma/client";
+import { typeBrand } from "@/types";
 
-export const RekamData = () => {
+export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   return (
     <>
       <Button
         color="primary"
         size="sm"
-        isIconOnly
-        radius="none"
+        radius="sm"
         onPress={onOpen}
-        className="rounded-full">
-        <BsCheckLg className="text-lg font-bold text-white" />
+        className="flex flex-row gap-2">
+        <BsCheckLg className="text-lg font-extrabold text-white" />
+        <p>Rekam</p>
       </Button>
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -34,36 +32,32 @@ export const RekamData = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Rekam Potongan DBH
+                Rekam Data Produk
               </ModalHeader>
               <ModalBody>
-                <div className="flex flex-row gap-4">
-                  <Chip size="md">Pemda : Kab. Aceh Besar</Chip>
-                  <Chip size="md">KPPN : Banda Aceh</Chip>
-                </div>
-                <div>
-                  <Select
-                    variant="flat"
-                    placeholder="Pilih Akun"
-                    size="sm"
-                    className="max-w-xs">
-                    <SelectItem key="akun" value="817111">
-                      817111
-                    </SelectItem>
-                  </Select>
-                </div>
-
                 <Input
                   size="sm"
-                  label="Nilai"
-                  placeholder="Input nilai potongan"
+                  label="Produk"
+                  placeholder="Input nama produk"
                 />
+                <Input
+                  size="sm"
+                  label="Harga"
+                  placeholder="Input harga produk"
+                />
+                <Select size="sm" placeholder="Pilih brand">
+                  {refBrand.map((row: any) => (
+                    <SelectItem key={row.id} value={row.nama}>
+                      {row.nama}
+                    </SelectItem>
+                  ))}
+                </Select>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Batal
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button color="primary" onPress={onClose} type="submit">
                   Simpan
                 </Button>
               </ModalFooter>

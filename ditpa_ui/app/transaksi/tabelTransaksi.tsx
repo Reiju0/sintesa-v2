@@ -2,13 +2,21 @@ import React from "react";
 import { RekamData } from "./rekam";
 import { UpdateData } from "./update";
 import { HapusData } from "./delete";
-import { getPotongan, getTransaksi } from "./fetchDataTransaksi";
+import type { typeTransaksi, typePotongan } from "./../../types";
+// import type { potongan } from "@prisma/client";
 
-const TabelTransaksi = async () => {
-  const [Potongan, Transaksi] = await Promise.all([
-    getPotongan(),
-    getTransaksi(),
-  ]);
+// interface TabelTransaksiProps {
+//   transaksi: typeTransaksi;
+//   potongan: typePotongan;
+// }
+
+const TabelTransaksi = ({
+  potongan,
+  transaksi,
+}: {
+  potongan: typePotongan[];
+  transaksi: typeTransaksi[];
+}) => {
   return (
     <>
       <div className="flex flex-col max-w-sm overflow-x-auto md:max-w-5xl">
@@ -48,7 +56,7 @@ const TabelTransaksi = async () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Potongan.map((row: any, i: number) => (
+                  {potongan.map((row: any, i: number) => (
                     <tr key={i} className="border-b dark:border-neutral-500">
                       <td className="px-6 py-4 font-light text-center whitespace-nowrap">
                         {i + 1}
@@ -75,7 +83,7 @@ const TabelTransaksi = async () => {
                         {row.transaksi.alokasi_periode - row.potongan}
                       </td>
                       <td className="flex flex-row gap-3 px-6 py-4 font-medium whitespace-nowrap">
-                        <RekamData transaksi={Transaksi} />
+                        <RekamData />
                         <UpdateData />
                         <HapusData />
                       </td>

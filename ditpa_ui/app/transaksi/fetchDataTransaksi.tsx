@@ -18,8 +18,6 @@ export const getPotongan = async () => {
       periode: true,
       nmperiode: true,
       potongan: true,
-      createdAt: true,
-      updatedAt: true,
       KDAKUN: true,
       transaksi: true,
     },
@@ -28,16 +26,36 @@ export const getPotongan = async () => {
 };
 
 export const getTransaksi = async () => {
-  const data = await prisma.transaksi.findMany();
+  const data = await prisma.transaksi.findMany({});
   return data;
 };
+
 export const getReferensiKPPN = async () => {
   const data = await prisma.t_kppn_lok.findMany({
     select: {
-      kdkppn: true,
       kdkabkota: true,
+      nmkabkota: true,
+      kdkppn: true,
+      nmkppn: true,
+      kdkanwil: true,
     },
     distinct: ["kdkppn"],
   });
   return data;
 };
+
+export const getAkun = async () => {
+  const data = await prisma.reff_akun.findMany({
+    select: {
+      kdakun: true,
+      nmakun: true,
+    },
+  });
+  return data;
+};
+
+// export const getdistinctTransaksi = async () => {
+//   const data =
+//     await prisma.$queryRaw`SELECT DISTINCT a.kdkppn, (SELECT GROUP_CONCAT(kdpemda SEPARATOR',') as kdpemda2 FROM transaksi b WHERE b.kdkppn = a.kdkppn) FROM transaksi a`;
+//   return data;
+// };

@@ -4,16 +4,33 @@ import { Divider } from "@nextui-org/divider";
 import { FilterKPPN, FilterPemda, FilterPeriode } from "./filter";
 import TabelTransaksi from "./tabelTransaksi";
 import RekamPotongan from "./tambahTransaksi";
-import { getPotongan } from "./fetchDataTransaksi";
+import {
+  getAkun,
+  getPotongan,
+  getReferensiKPPN,
+  getTransaksi,
+} from "./fetchDataTransaksi";
+
+// getAll data --> Props ke children (client component )
 
 const Transaksi = async () => {
-  const Potongan = await getPotongan();
+  const [Potongan, Transaksi, Referensi, Akun] = await Promise.all([
+    getPotongan(),
+    getTransaksi(),
+    getReferensiKPPN(),
+    getAkun(),
+  ]);
+
   return (
     <>
       <Card className="max-w-[600]">
         <CardHeader className="flex ml-4 font-bold justify-left">
-          <RekamPotongan potongan={Potongan} />
-          {/* <p className="my-2 text-lg font-bold">Data Potongan DBH</p> */}
+          <RekamPotongan
+            potongan={Potongan}
+            transaksi={Transaksi}
+            reff={Referensi}
+          />
+          {/* <p className="my-2 text-lg font-bold">Data Potongan DBH</p> reff={Referensi} reffAkun={Akun}*/}
         </CardHeader>
         <Divider />
         <div className="flex flex-row">
@@ -26,7 +43,7 @@ const Transaksi = async () => {
         </div>
         <Divider />
         <CardBody className="-mt-6">
-          <TabelTransaksi />
+          <TabelTransaksi potongan={Potongan} transaksi={Transaksi} />
         </CardBody>
       </Card>
     </>
