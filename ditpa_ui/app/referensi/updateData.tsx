@@ -10,43 +10,49 @@ import {
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { Chip } from "@nextui-org/chip";
-import { typeBrand } from "@/types";
-import { useState } from "react";
+
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BsFillPencilFill } from "react-icons/bs";
+import type { Brand, Produk } from "@prisma/client";
 
-export const UpdateData = ({ refBrand }: { refBrand: typeBrand[] }) => {
+export const UpdateData = ({
+  refBrand,
+  row,
+}: {
+  refBrand: Brand[];
+  row: Produk;
+}) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [formProduk, setFormProduk] = useState({
-    nmproduk: "",
-    harga: "",
-    brandId: "",
+    nmproduk: row.nmproduk,
+    harga: row.harga,
+    brandId: row.brandId,
   });
 
   const handleChange = async (e: any) => {
     const { name, value } = e.target;
-    setFormProduk({
+    setFormProduk((formProduk) => ({
       ...formProduk,
       [name]: value,
-    });
+    }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleUpdate = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/referensi", {
-        method: "POST",
+      const response = await fetch("/api/referensi?id=" + row.id, {
+        method: "PUT", // Anda harus menentukan metode HTTP PUT
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formProduk),
       });
       if (response.ok) {
-        console.log("Data baru berhasil di tambahkan");
+        console.log("Data berhasil di update");
       } else {
-        console.error("Data gagal di tambahkan ");
+        console.error("Data gagal di update ");
       }
     } catch {
       console.log("Terjadi kesalahan Fetch Data dari API  ");
@@ -66,7 +72,7 @@ export const UpdateData = ({ refBrand }: { refBrand: typeBrand[] }) => {
       </Button>
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUpdate}>
           <ModalContent>
             {(onClose) => (
               <>
@@ -86,18 +92,18 @@ export const UpdateData = ({ refBrand }: { refBrand: typeBrand[] }) => {
                     size="sm"
                     label="Harga"
                     name="harga"
-                    value={formProduk.harga}
+                    value={formProduk.harga.toString()}
                     placeholder="Input harga produk"
                     onChange={handleChange}
                   />
                   <Select
                     size="sm"
                     name="brandId"
-                    placeholder="Pilih brand"
+                    placeholder="Pilih update brand"
                     value={formProduk.brandId}
                     onChange={handleChange}>
                     {refBrand.map((row: any) => (
-                      <SelectItem key={row.id} value={row.nama}>
+                      <SelectItem key={row.id} value={row.id}>
                         {row.nama}
                       </SelectItem>
                     ))}

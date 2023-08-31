@@ -19,7 +19,7 @@ const AlokasiDBH = async () => {
           <AddData refBrand={Brand} />
         </CardHeader>
         <Divider />
-        <CardBody className="-mt-6">
+        <CardBody className="-mt-5 overflow-y-auto max-h-80">
           <TabelAlokasiDBH refProduk={Produk} refBrand={Brand} />
         </CardBody>
       </Card>

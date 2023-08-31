@@ -7,13 +7,29 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/modal";
-
 import { Button } from "@nextui-org/button";
-
 import { BsFillTrashFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
+import type { Produk } from "@prisma/client";
 
-export const HapusData = () => {
+interface Props {
+  row: Produk;
+}
+
+export const HapusData = ({ row }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
+
+  const handleDelete = async (id: number) => {
+    const response = await fetch("/api/referensi?id=" + id, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      console.log("Data Berhasil di hapus");
+    }
+    router.refresh();
+  };
+
   return (
     <>
       <Button
@@ -30,15 +46,17 @@ export const HapusData = () => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Apakah anda yakin ingin menghapus data ?
+              <ModalHeader className="flex flex-col gap-1 mt-4 text-danger">
+                {`Apakah anda yakin ingin menghapus produk ${row.nmproduk}?`}
               </ModalHeader>
-
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Batal
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  color="primary"
+                  onPress={onClose}
+                  onClick={() => handleDelete(row.id)}>
                   Hapus
                 </Button>
               </ModalFooter>

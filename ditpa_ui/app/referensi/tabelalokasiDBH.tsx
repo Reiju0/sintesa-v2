@@ -4,7 +4,7 @@ import FetchDataAPI from "../api/omspan/fetchDataAPI";
 import { useEffect, useState } from "react";
 import { typeBrand, typeProduk } from "@/types";
 import { UpdateData } from "./updateData";
-import HapusData from "./deleteData";
+import { HapusData } from "./deleteData";
 
 const TabelAlokasiDBH = ({
   refProduk,
@@ -27,6 +27,7 @@ const TabelAlokasiDBH = ({
   // useEffect(() => {
   //   data();
   // }, []);
+  // ambil data dari API OMSPAN
 
   return (
     <>
@@ -59,24 +60,24 @@ const TabelAlokasiDBH = ({
                     <tr
                       key={row.id}
                       className="border-b dark:border-neutral-500">
-                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                      <td className="px-6 py-2 font-light whitespace-nowrap">
                         {i + 1}
                       </td>
-                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                      <td className="px-6 py-2 font-light whitespace-nowrap">
                         {row.nmproduk}
                       </td>
-                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                      <td className="px-6 py-2 font-light whitespace-nowrap">
                         {row.brand.nama}
                       </td>
-                      <td className="px-6 py-4 font-light whitespace-nowrap">
+                      <td className="px-6 py-2 font-light whitespace-nowrap">
                         {row.harga.toLocaleString("id-ID", {
                           style: "currency",
                           currency: "IDR",
                         })}
                       </td>
-                      <td className="flex flex-row gap-3 px-6 py-4 font-light whitespace-nowrap">
-                        <UpdateData refBrand={refBrand} />
-                        <HapusData />
+                      <td className="flex flex-row gap-3 px-6 py-2 font-light whitespace-nowrap">
+                        <UpdateData refBrand={refBrand} row={row} />
+                        <HapusData row={row} />
                       </td>
                     </tr>
                   ))}
