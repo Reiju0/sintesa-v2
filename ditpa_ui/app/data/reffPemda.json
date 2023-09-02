@@ -1,4 +1,4 @@
-export const reffPemdaKppn = [{"id":1, "kdpemda":"0600", "nmpemda":"Provinsi Aceh", "kdkppn":"001", "nmkppn":"BANDA ACEH", "kdkanwil":"01"},
+[{"id":1, "kdpemda":"0600", "nmpemda":"Provinsi Aceh", "kdkppn":"001", "nmkppn":"BANDA ACEH", "kdkanwil":"01"},
  {"id":2, "kdpemda":"0606", "nmpemda":"Kab. Aceh Barat", "kdkppn":"003", "nmkppn":"MEULABOH", "kdkanwil":"01"},
  {"id":3, "kdpemda":"0601", "nmpemda":"Kab. Aceh Besar", "kdkppn":"001", "nmkppn":"BANDA ACEH", "kdkanwil":"01"},
  {"id":4, "kdpemda":"0605", "nmpemda":"Kab. Aceh Selatan", "kdkppn":"074", "nmkppn":"TAPAKTUAN", "kdkanwil":"01"},

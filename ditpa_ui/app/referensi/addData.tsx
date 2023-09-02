@@ -75,6 +75,7 @@ export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
                 </ModalHeader>
                 <ModalBody>
                   <Input
+                    aria-label="label for the select"
                     size="sm"
                     label="Produk"
                     name="nmproduk"
@@ -83,6 +84,7 @@ export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
                     onChange={handleChange}
                   />
                   <Input
+                    aria-label="label for the select"
                     size="sm"
                     label="Harga"
                     name="harga"
@@ -91,13 +93,14 @@ export const AddData = ({ refBrand }: { refBrand: typeBrand[] }) => {
                     onChange={handleChange}
                   />
                   <Select
+                    aria-label="label for the select"
                     size="sm"
                     name="brandId"
                     placeholder="Pilih brand"
                     value={formProduk.brandId}
                     onChange={handleChange}>
                     {refBrand.map((row: any) => (
-                      <SelectItem key={row.id} value={row.nama}>
+                      <SelectItem key={row.id} value={row.id}>
                         {row.nama}
                       </SelectItem>
                     ))}

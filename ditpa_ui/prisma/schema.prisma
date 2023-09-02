@@ -32,9 +32,8 @@ model transaksi {
   nmjenis         String?    @db.VarChar(255)
   periode         String     @db.Char(4)
   nmperiode       String     @db.VarChar(255)
-  alokasi_periode String     @db.Char(18)
+  alokasi_periode Decimal    @db.Decimal(18, 2)
   createdAt       DateTime?  @default(now()) @db.DateTime(0)
-  updatedAt       DateTime?  @updatedAt @db.DateTime(0)
   potongan        potongan[]
 
   @@unique([kdpemda, kdkppn, periode])
@@ -45,17 +44,12 @@ model potongan {
   id        Int       @id @default(autoincrement())
   thang     String    @db.Char(4)
   kdpemda   String    @db.Char(4)
-  nmpemda   String    @db.VarChar(255)
   kdkppn    String    @db.Char(3)
-  nmkppn    String    @db.VarChar(255)
-  kdjenis   String?   @db.Char(4)
-  nmjenis   String?   @db.VarChar(255)
   periode   String    @db.Char(4)
-  nmperiode String    @db.VarChar(255)
-  potongan  String    @db.Char(18)
+  potongan  Decimal   @db.Decimal(18, 2)
   createdAt DateTime? @default(now()) @db.DateTime(0)
   updatedAt DateTime? @db.DateTime(0)
-  KDAKUN    String    @db.Char(6)
+  KDAKUN    Int
   transaksi transaksi @relation(fields: [kdpemda, kdkppn, periode], references: [kdpemda, kdkppn, periode])
 
   @@index([kdpemda, kdkppn, periode])

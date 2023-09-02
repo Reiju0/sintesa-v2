@@ -3,18 +3,26 @@ import {
   Modal,
   ModalContent,
   ModalHeader,
-  ModalBody,
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-import { Chip } from "@nextui-org/chip";
+import { useRouter } from "next/navigation";
 import { BsFillTrashFill } from "react-icons/bs";
+import { typePotongan } from "@/types";
 
-export const HapusData = () => {
+export const HapusData = ({ row }: { row: typePotongan }) => {
+  const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const handleDelete = async (id: number) => {
+    const response = await fetch("/api/transaksi?id=" + id, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      console.log("Data Berhasil di hapus");
+    }
+    router.refresh();
+  };
   return (
     <>
       <Button
@@ -32,14 +40,21 @@ export const HapusData = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Apakah anda yakin ingin menghapus data ?
+                <p>
+                  Apakah anda yakin ingin menghapus data Potongan
+                  <span className="text-danger"> {row.transaksi.nmpemda} </span>
+                  ?
+                </p>
               </ModalHeader>
 
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Batal
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  color="primary"
+                  onPress={onClose}
+                  onClick={() => handleDelete(row.id)}>
                   Hapus
                 </Button>
               </ModalFooter>

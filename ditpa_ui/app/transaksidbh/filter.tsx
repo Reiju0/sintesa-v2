@@ -7,9 +7,10 @@ export const FilterPeriode = () => {
     <>
       <div className="w-40">
         <Select
+          aria-label="label for the select"
           variant="flat"
           placeholder="Pilih Periode"
-          size="xs"
+          size="sm"
           className="max-w-[20]">
           <SelectItem value="31">Triwulan I</SelectItem>
           <SelectItem value="32">Triwulan II</SelectItem>
@@ -26,9 +27,10 @@ export const FilterKPPN = () => {
     <>
       <div className="w-40">
         <Select
+          aria-label="label for the select"
           variant="flat"
           placeholder="Pilih KPPN"
-          size="xs"
+          size="sm"
           className="max-w-xs">
           <SelectItem value="001">KPPN Banda Aceh</SelectItem>
           <SelectItem value="002">KPPN Langsa</SelectItem>
@@ -44,13 +46,20 @@ export const FilterPemda = () => {
     <>
       <div className="w-40">
         <Select
+          aria-label="label for the select"
           variant="flat"
           placeholder="Pilih Pemda"
-          size="xs"
+          size="sm"
           className="max-w-xs">
-          <SelectItem value="0600">Kab. Aceh Besar</SelectItem>
-          <SelectItem value="0601">Kab. Langsa</SelectItem>
-          <SelectItem value="0700">Kota Meda</SelectItem>
+          <SelectItem key="1" value="0600">
+            Kab. Aceh Besar
+          </SelectItem>
+          <SelectItem key="2" value="0601">
+            Kab. Langsa
+          </SelectItem>
+          <SelectItem key="3" value="0700">
+            Kota Meda
+          </SelectItem>
         </Select>
       </div>
     </>

@@ -26,9 +26,11 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.js",
     ".next/types/**/*.ts",
-    "app/referensi/[id]/*.tsx"
+    "app/**/*.tsx",
+    "**/*.rest",
+    "app/auth/auth.js"
   ],
   "exclude": ["node_modules"],
   "downlevelIteration": true

@@ -1,0 +1,29 @@
+###
+POST http://localhost:3000/api/transaksi
+
+{
+          "thang"  : "2023", 
+          "periode" : "31", 
+          "kdkppn" : "001",
+          "kdpemda" : "0600", 
+          "potongan" : 1000080,
+          "KDAKUN" : 817714
+}
+###
+GET  http://localhost:3000/api/transaksi
+
+###
+PUT http://localhost:3000/api/transaksi?id=1
+
+{
+          "thang"  : "2023", 
+          "periode" : "32", 
+          "kdkppn" : "001",
+          "kdpemda" : "0600", 
+          "potongan" : 1000099,
+          "KDAKUN" : 817714
+}
+
+###
+
+DELETE http://localhost:3000/api/transaksi?id=1

@@ -14,7 +14,7 @@ export const siteConfig = {
     },
     {
       label: "RUH",
-      href: "/transaksi",
+      href: "/transaksidbh",
     },
     {
       label: "Referensi",

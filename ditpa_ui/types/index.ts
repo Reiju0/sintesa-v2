@@ -1,4 +1,6 @@
 import {SVGProps} from "react";
+import type { potongan } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -6,33 +8,45 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 
 export type typePotongan = {
   id: number;
-  thang: string;
-  kdpemda: string;
-  nmpemda: string;
-  kdkppn: string;
-  nmkppn: string;
-  kdjenis: string | null;
-  nmjenis: string | null;
-  periode: string;
-  nmperiode: string;
-  potongan: string;
-  KDAKUN: string;
+    thang: string;
+    kdpemda: string;
+    kdkppn: string;
+    periode: string;
+    potongan: Decimal;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    KDAKUN: number;
+    transaksi:{
+      id: number;
+      thang: string;
+      kdpemda: string;
+      nmpemda: string;
+      kdkppn: string;
+      nmkppn: string;
+      kdjenis: string | null;
+      nmjenis: string | null;
+      periode: string;
+      nmperiode: string;
+      alokasi_periode: Decimal;
+      createdAt: Date | null;
+    }
+  
 }
 
 export type typeTransaksi = {
   id: number;
   thang: string;
   kdpemda: string;
-  nmpemda: string;
-  kdkppn: string;
-  nmkppn: string;
-  kdjenis: string | null;
-  nmjenis: string | null;
-  periode: string;
-  nmperiode: string;
-  alokasi_periode: string;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+    nmpemda: string;
+    kdkppn: string;
+    nmkppn: string;
+    kdjenis: string | null;
+    nmjenis: string | null;
+    periode: string;
+    nmperiode: string;
+    alokasi_periode: Decimal;
+    createdAt: Date | null;
+
 }
 
 export type typeReferensi = {

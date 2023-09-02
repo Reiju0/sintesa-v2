@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import TabelAlokasiDBH from "./tabelalokasiDBH";
-import { getRefBrand, getProduk } from "../controller/refRekamTransaksi";
+import { getRefBrand, getProduk } from "../controller/getReferensi";
 import { AddData } from "./addData";
 
 const AlokasiDBH = async () => {

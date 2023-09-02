@@ -11,7 +11,7 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BsFillPencilFill } from "react-icons/bs";
 import type { Brand, Produk } from "@prisma/client";
@@ -77,10 +77,11 @@ export const UpdateData = ({
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  Update Data Potongan DBH
+                  Update Data Produk
                 </ModalHeader>
                 <ModalBody>
                   <Input
+                    aria-label="label for the select"
                     size="sm"
                     label="Produk"
                     name="nmproduk"
@@ -89,6 +90,7 @@ export const UpdateData = ({
                     onChange={handleChange}
                   />
                   <Input
+                    aria-label="label for the select"
                     size="sm"
                     label="Harga"
                     name="harga"
@@ -97,13 +99,17 @@ export const UpdateData = ({
                     onChange={handleChange}
                   />
                   <Select
+                    aria-label="label for the select"
                     size="sm"
                     name="brandId"
                     placeholder="Pilih update brand"
                     value={formProduk.brandId}
                     onChange={handleChange}>
                     {refBrand.map((row: any) => (
-                      <SelectItem key={row.id} value={row.id}>
+                      <SelectItem
+                        aria-label="label for the select"
+                        key={row.id}
+                        value={row.id}>
                         {row.nama}
                       </SelectItem>
                     ))}

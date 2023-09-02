@@ -1,7 +1,4 @@
 "use client";
-import Login from "../api/omspan/loginAPI";
-import FetchDataAPI from "../api/omspan/fetchDataAPI";
-import { useEffect, useState } from "react";
 import { typeBrand, typeProduk } from "@/types";
 import { UpdateData } from "./updateData";
 import { HapusData } from "./deleteData";

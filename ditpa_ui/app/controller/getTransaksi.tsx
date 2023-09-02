@@ -1,22 +1,15 @@
-import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-//read join tabel transaksi dan potongan
 export const getPotongan = async () => {
   const data = await prisma.potongan.findMany({
     select: {
       id: true,
       thang: true,
       kdpemda: true,
-      nmpemda: true,
       kdkppn: true,
-      nmkppn: true,
-      kdjenis: true,
-      nmjenis: true,
       periode: true,
-      nmperiode: true,
       potongan: true,
       KDAKUN: true,
       transaksi: true,
@@ -39,7 +32,6 @@ export const getReferensiKPPN = async () => {
       nmkppn: true,
       kdkanwil: true,
     },
-    distinct: ["kdkppn"],
   });
   return data;
 };
