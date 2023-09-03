@@ -1,36 +1,20 @@
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const Auth = async (req, res) => {
-  if (req.method !== "POST") {
-    return res.status(405).end();
-  }
+const AuthMiddleware = (handler) => {
+  async (req, res) => {
+    const token = req.cookies.token;
 
-  // Simpan informasi pengguna yang valid di sini
-  const validUser = {
-    username: "user",
-    password: "password123", // Anda harus mengganti ini dengan pengaturan yang aman
+    if (!token) {
+      return res.status(401).json({ msg: "Token tidak ada!" });
+    }
+    try {
+      const decoded = jwt.verify(token, "secret-key"); // Pastikan kunci yang digunakan sama dengan yang di login.js
+      req.user = decoded;
+      return handler(req, res);
+    } catch (error) {
+      return res.status(401).json({ message: "Token tidak valid" });
+    }
   };
-
-  const { username, password } = req.body;
-
-  // Periksa apakah kredensial valid
-  if (
-    username === validUser.username &&
-    (await bcrypt.compare(password, validUser.password))
-  ) {
-    // Buat token JWT
-    const token = jwt.sign({ username: validUser.username }, "secret-key", {
-      expiresIn: "1h",
-    });
-
-    // Simpan token di cookie
-    res.setHeader("Set-Cookie", `token=${token}; HttpOnly`);
-
-    return res.status(200).json({ message: "Login berhasil" });
-  } else {
-    return res.status(401).json({ message: "Kredensial tidak valid" });
-  }
 };
 
-export default Auth;
+export default AuthMiddleware;

@@ -6,6 +6,8 @@ import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
+import { ToastContainer } from "react-toastify";
+import { color } from "framer-motion";
 
 export const metadata: Metadata = {
   title: {
@@ -40,6 +42,7 @@ export default function RootLayout({
         <Providers
           themeProps={{ attribute: "class", defaultTheme: "purple-dark" }}>
           <div className="relative flex flex-col h-screen">
+            <ToastContainer />
             <Navbar />
             {/* All content will parsing here. */}
             <main className="container flex-grow px-6 mx-auto max-w-7xl">

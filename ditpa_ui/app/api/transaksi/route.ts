@@ -26,6 +26,26 @@ export const POST = async (req: Request, res: NextResponse) => {
   if(req.method === "POST"){
     try {
       const body : typePotongan = await req.json()
+      //validasi 1
+      const existingData = await prisma.potongan.findFirst({
+          where: {
+            periode: body.periode,
+            kdkppn: body.kdkppn,
+            kdpemda: body.kdpemda,
+          },
+        });
+  
+      if (existingData) {
+        console.log("data sudah ada");
+        return NextResponse.json({ msg: "Data dengan parameter yang sama sudah ada." }, {status : 400});
+        
+      }
+      //validasi 2
+      if (!body.thang || !body.periode || !body.kdkppn || !body.kdpemda || !body.potongan || !body.KDAKUN) {
+        console.log("semua kolom harus diisi!")
+        return NextResponse.json({ message: 'Semua kolom data harus diisi.' }, {status : 404})
+      }
+
       console.log("Data yang diterima:", body);
       const dataPotongan = await prisma.potongan.create({
         data : {
@@ -36,8 +56,8 @@ export const POST = async (req: Request, res: NextResponse) => {
           potongan : Number(body.potongan), 
           KDAKUN : Number(body.KDAKUN), 
         }
-      });
-        return NextResponse.json(dataPotongan);
+      })
+        return NextResponse.json(dataPotongan, {status : 201});
       } catch (err) {
       console.error(err);
       return NextResponse.json({msg : "terjadi kesalahan menambahkan data!"})

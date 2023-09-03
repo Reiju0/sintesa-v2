@@ -21,8 +21,8 @@ export const siteConfig = {
       href: "/referensi",
     },
     {
-      label: "About",
-      href: "/about",
+      label: "Renkas",
+      href: "/renkas",
     }
 	],
 	navMenuItems: [
@@ -66,5 +66,6 @@ export const siteConfig = {
 		discord: "https://discord.gg/9b6yyZKmH4",
     	sponsor: "https://patreon.com/jrgarciadev",
 		user: "/",
+		detail: "/renkas/detail"
 	},
 };

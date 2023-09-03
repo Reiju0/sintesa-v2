@@ -10,6 +10,7 @@ import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { BsFillTrashFill } from "react-icons/bs";
 import { typePotongan } from "@/types";
+import { toast } from "react-toastify";
 
 export const HapusData = ({ row }: { row: typePotongan }) => {
   const router = useRouter();
@@ -19,6 +20,12 @@ export const HapusData = ({ row }: { row: typePotongan }) => {
       method: "DELETE",
     });
     if (response.ok) {
+      toast.success("Data berhasil dihapus!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        hideProgressBar: true,
+        theme: "colored",
+      });
       console.log("Data Berhasil di hapus");
     }
     router.refresh();

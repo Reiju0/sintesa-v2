@@ -29,8 +29,7 @@
     "**/*.js",
     ".next/types/**/*.ts",
     "app/**/*.tsx",
-    "**/*.rest",
-    "app/auth/auth.js"
+    "**/*.rest"
   ],
   "exclude": ["node_modules"],
   "downlevelIteration": true

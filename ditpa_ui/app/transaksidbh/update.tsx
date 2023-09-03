@@ -7,13 +7,13 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { BsFillPencilFill } from "react-icons/bs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { typePotongan } from "@/types";
+import { toast } from "react-toastify";
 
 export const UpdateData = ({ row }: { row: typePotongan }) => {
   const router = useRouter();
@@ -44,6 +44,12 @@ export const UpdateData = ({ row }: { row: typePotongan }) => {
       });
 
       if (response.ok) {
+        toast.success("Data berhasil diupdate!", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+          hideProgressBar: true,
+          theme: "colored",
+        });
         console.log("Data berhasil di update");
       } else {
         console.error("Data gagal di update ");

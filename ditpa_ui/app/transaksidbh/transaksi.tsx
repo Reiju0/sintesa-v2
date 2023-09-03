@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
-import { FilterKPPN, FilterPemda, FilterPeriode } from "./filter";
 import TabelTransaksi from "./tabelTransaksi";
 import RekamPotongan from "./tambah";
 

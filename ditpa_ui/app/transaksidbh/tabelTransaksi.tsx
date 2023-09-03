@@ -46,7 +46,7 @@ const TabelTransaksi = ({ potongan }: { potongan: typePotongan[] }) => {
               <option value="34">Triwulan IV</option>
             </select>
           </div>
-          <div className="max-w-md p-1.5 text-sm rounded-md bg-foreground-200">
+          <div className="max-w-md p-1.5 text-sm rounded-md bg-default-200">
             <select
               aria-label="label for the select"
               value={kppnFilter}
