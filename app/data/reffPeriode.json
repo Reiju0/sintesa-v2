@@ -1,0 +1,39 @@
+[
+    {
+      "periode": "01",
+      "nmperiode": "Januari"
+    },{
+        "periode": "02",
+        "nmperiode": "Februari"
+      },{
+        "periode": "03",
+        "nmperiode": "Maret"
+      },{
+        "periode": "04",
+        "nmperiode": "April"
+      },{
+        "periode": "05",
+        "nmperiode": "Mei"
+      },{
+        "periode": "06",
+        "nmperiode": "Juni"
+      },{
+        "periode": "07",
+        "nmperiode": "Juli"
+      },{
+        "periode": "08",
+        "nmperiode": "Agustus"
+      },{
+        "periode": "09",
+        "nmperiode": "September"
+      },{
+        "periode": "10",
+        "nmperiode": "Oktober"
+      },{
+        "periode": "11",
+        "nmperiode": "November"
+      },{
+        "periode": "12",
+        "nmperiode": "Desember"
+      }
+]

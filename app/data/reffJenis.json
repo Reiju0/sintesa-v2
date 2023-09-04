@@ -1,0 +1,30 @@
+[
+    {
+      "kdjenis": "01",
+      "nmjenis": "Dana Alokasi Umum"
+    },{
+        "kdjenis": "02",
+        "nmjenis": "Dana Bagi Hasil"
+      },{
+        "kdjenis": "03",
+        "nmjenis": "DAK Fisik"
+      },{
+        "kdjenis": "04",
+        "nmjenis": "DAK Nonfisik"
+      },{
+        "kdjenis": "05",
+        "nmjenis": "Dana Desa"
+      },{
+        "kdjenis": "06",
+        "nmjenis": "Insentif Fiskal"
+      },{
+        "kdjenis": "07",
+        "nmjenis": "Otonomi Khusus"
+      },{
+        "kdjenis": "08",
+        "nmjenis": "Dana Keistimewaan DIY"
+      },{
+        "kdjenis": "10",
+        "nmjenis": "Hibah"
+      }
+]
