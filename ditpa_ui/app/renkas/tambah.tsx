@@ -7,44 +7,43 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/modal";
-import { Select, SelectItem } from "@nextui-org/select";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
+import { Divider } from "@nextui-org/divider";
+import { toast } from "react-toastify";
+import { BsCheckCircleFill } from "react-icons/bs";
 import "react-toastify/dist/ReactToastify.css";
 
 import reffKppn from "../data/reffKppn.json";
-import reffPemda from "../data/reffPemda.json";
+import reffPeriode from "../data/reffPeriode.json";
+import reffJenis from "../data/reffJenis.json";
+import reffSatker from "../data/reffSatker.json";
 
-const RekamPotongan = () => {
+const RekamRenkas = () => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [isloading, setIsloading] = useState(false);
-  const [thang, setThang] = useState("");
   const [periode, setPeriode] = useState("");
+  const [kdjenis, setJenis] = useState("");
   const [kdkppn, setKppn] = useState("");
-  const [kdpemda, setPemda] = useState("");
-  const [KDAKUN, setAkun] = useState("");
-  const [potongan, setPotongan] = useState("");
+  const [kdsatker, setSatker] = useState("");
+  const [renkas, setRenkas] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setIsloading(true);
     try {
-      const response = await fetch("/api/transaksi", {
+      const response = await fetch("/api/renkas", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          thang,
           periode,
+          kdjenis,
           kdkppn,
-          kdpemda,
-          potongan,
-          KDAKUN,
+          kdsatker,
+          renkas,
         }),
       });
 
@@ -78,7 +77,6 @@ const RekamPotongan = () => {
       console.log("Terjadi kesalahan Fetch Data dari API ", err);
     }
 
-    setIsloading(false);
     router.refresh();
   };
 
@@ -87,8 +85,9 @@ const RekamPotongan = () => {
       <Button
         color="primary"
         size="md"
-        radius="sm"
+        radius="full"
         onPress={onOpen}
+        startContent={<BsCheckCircleFill size={20} />}
         className="text-md">
         Rekam
       </Button>
@@ -96,147 +95,127 @@ const RekamPotongan = () => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Rekam Potongan DBH
+              <ModalHeader className="flex flex-col gap-1 text-xl text-center">
+                Rekam Renkas Bulanan
               </ModalHeader>
-              <form aria-label="label for the select" onSubmit={handleSubmit}>
+              <Divider />
+              <form
+                onSubmit={handleSubmit}
+                aria-label="label for the select"
+                className="mt-4">
                 <ModalBody>
-                  <div className="flex flex-row gap-4">
-                    <Select
-                      aria-label="label for the select"
-                      variant="flat"
-                      placeholder="pilih tahun"
-                      name="thang"
-                      value={thang}
-                      onChange={(e: any) => setThang(e.target.value)}
-                      size="sm"
-                      className="max-w-xs">
-                      <SelectItem
+                  <div className="flex flex-row gap-3">
+                    <div className="max-w-md p-2 text-sm rounded-lg bg-default-100">
+                      <select
                         aria-label="label for the select"
-                        key="2023"
-                        value="2023">
-                        2023
-                      </SelectItem>
-                    </Select>
-                    <Select
-                      aria-label="label for the select"
-                      variant="flat"
-                      name="periode"
-                      value={periode}
-                      onChange={(e: any) => setPeriode(e.target.value)}
-                      placeholder="Pilih Periode"
-                      size="sm"
-                      className="max-w-md">
-                      <SelectItem
-                        aria-label="label for the select"
-                        key="31"
-                        value="31">
-                        Triwulan I
-                      </SelectItem>
-                      <SelectItem
-                        aria-label="label for the select"
-                        key="32"
-                        value="32">
-                        Triwulan II
-                      </SelectItem>
-                      <SelectItem
-                        aria-label="label for the select"
-                        key="33"
-                        value="33">
-                        Triwulan III
-                      </SelectItem>
-                      <SelectItem
-                        aria-label="label for the select"
-                        key="34"
-                        value="34">
-                        Triwulan IV
-                      </SelectItem>
-                    </Select>
-                  </div>
-                  <div className="max-w-md p-2 text-sm rounded-lg bg-default-100">
-                    <select
-                      aria-label="label for the select"
-                      name="kdkppn"
-                      value={kdkppn}
-                      onChange={(e: any) => setKppn(e.target.value)}
-                      className="p-1.5 w-[380px] text-sm bg-transparent outline-none focus:outline-none">
-                      <option aria-label="label for the select" value="xx">
-                        pilih kppn
-                      </option>
-                      {reffKppn.map((row: any, i: number) => (
-                        <option
-                          aria-label="label for the select"
-                          key={row.kdkppn}
-                          value={row.kdkppn}
-                          className="overflow-auto max-h-40">
-                          ({row.kdkppn}) {row.nmkppn}
+                        placeholder="pilih periode"
+                        name="kdkppn"
+                        value={periode}
+                        onChange={(e: any) => setPeriode(e.target.value)}
+                        className="p-1.5 w-[180px] text-sm bg-transparent outline-none focus:outline-none">
+                        <option aria-label="label for the select" value="xx">
+                          pilih periode
                         </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="max-w-md p-1.5 text-sm rounded-lg bg-default-100">
-                    <select
-                      aria-label="label for the select"
-                      value={kdpemda}
-                      onChange={(e: any) => setPemda(e.target.value)}
-                      className="p-2 w-[380px] text-sm bg-transparent outline-none focus:outline-none">
-                      <option
-                        className="text-sm"
-                        aria-label="label for the select"
-                        value="xx">
-                        pilih pemda
-                      </option>
-                      {reffPemda
-                        .filter((row: any) => row.kdkppn === kdkppn)
-                        .map((row: any, i: number) => (
+                        {reffPeriode.map((row: any, i: number) => (
                           <option
-                            className="text-sm"
                             aria-label="label for the select"
-                            value={row.kdpemda}
-                            key={i}>
-                            ({row.kdpemda}) {row.nmpemda}
+                            key={row.periode}
+                            value={row.periode}
+                            className="overflow-auto max-h-40">
+                            {row.nmperiode}
                           </option>
                         ))}
-                    </select>
+                      </select>
+                    </div>
+                    <div className="max-w-md p-1.5 text-sm rounded-lg bg-default-100">
+                      <select
+                        aria-label="label for the select"
+                        value={kdjenis}
+                        onChange={(e: any) => setJenis(e.target.value)}
+                        className="p-2 w-[180px] text-sm bg-transparent outline-none focus:outline-none">
+                        <option
+                          className="text-sm"
+                          aria-label="label for the select"
+                          value="xx">
+                          pilih jenis dana
+                        </option>
+                        {reffJenis.map((row: any, i: number) => (
+                          <option
+                            aria-label="label for the select"
+                            key={row.kdjenis}
+                            value={row.kdjenis}
+                            className="overflow-auto max-h-40">
+                            {row.nmjenis}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
-
-                  <Select
-                    aria-label="label for the select"
-                    variant="flat"
-                    placeholder="Pilih akun potongan"
-                    name="KDAKUN"
-                    value={KDAKUN}
-                    onChange={(e: any) => setAkun(e.target.value)}
-                    size="sm"
-                    className="max-w-md">
-                    <SelectItem
-                      aria-label="label for the select"
-                      key="817714"
-                      value={817714}>
-                      817714
-                    </SelectItem>
-                  </Select>
+                  <div className="flex flex-row gap-3">
+                    <div className="max-w-md p-2 text-sm rounded-lg bg-default-100">
+                      <select
+                        aria-label="label for the select"
+                        name="kdkppn"
+                        value={kdkppn}
+                        onChange={(e: any) => setKppn(e.target.value)}
+                        className="p-1.5 w-[180px] text-sm bg-transparent outline-none focus:outline-none">
+                        <option aria-label="label for the select" value="xx">
+                          pilih kppn
+                        </option>
+                        {reffKppn.map((row: any, i: number) => (
+                          <option
+                            aria-label="label for the select"
+                            key={row.kdkppn}
+                            value={row.kdkppn}
+                            className="overflow-auto max-h-40">
+                            ({row.kdkppn}) {row.nmkppn}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="max-w-md p-1.5 text-sm rounded-lg bg-default-100">
+                      <select
+                        aria-label="label for the select"
+                        value={kdsatker}
+                        onChange={(e: any) => setSatker(e.target.value)}
+                        className="p-2 w-[180px] text-sm bg-transparent outline-none focus:outline-none">
+                        <option
+                          className="text-sm"
+                          aria-label="label for the select"
+                          value="xx">
+                          pilih satker
+                        </option>
+                        {reffSatker
+                          .filter((row: any) => row.kdkppn === kdkppn)
+                          .map((row: any, i: number) => (
+                            <option
+                              className="text-sm"
+                              aria-label="label for the select"
+                              value={row.kdsatker}
+                              key={i}>
+                              ({row.kdsatker}) {row.nmsatker}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                  </div>
 
                   <Input
                     aria-label="label for the select"
                     size="sm"
                     label="Nilai"
                     name="potongan"
-                    value={potongan}
-                    onChange={(e: any) => setPotongan(e.target.value)}
-                    placeholder="Input nilai potongan"
+                    value={renkas}
+                    onChange={(e: any) => setRenkas(e.target.value)}
+                    placeholder="Input nilai renkas"
                   />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Batal
                   </Button>
-                  <Button
-                    color="primary"
-                    onPress={onClose}
-                    type="submit"
-                    isDisabled={isloading}>
-                    {isloading ? "Loading..." : "Simpan"}
+                  <Button color="primary" onPress={onClose} type="submit">
+                    Simpan
                   </Button>
                 </ModalFooter>
               </form>
@@ -248,4 +227,4 @@ const RekamPotongan = () => {
   );
 };
 
-export default RekamPotongan;
+export default RekamRenkas;

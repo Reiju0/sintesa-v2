@@ -12,34 +12,32 @@ import { Input } from "@nextui-org/input";
 import { BsFillPencilFill } from "react-icons/bs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { typePotongan } from "@/types";
+import { typeRenkas } from "@/types";
 import { toast } from "react-toastify";
 
-export const UpdateData = ({ row }: { row: typePotongan }) => {
+export const UpdateData = ({ row }: { row: typeRenkas }) => {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [thang, setThang] = useState(row.thang);
   const [periode, setPeriode] = useState(row.periode);
+  const [kdjenis, setJenis] = useState(row.kdjenis);
   const [kdkppn, setKppn] = useState(row.kdkppn);
-  const [kdpemda, setPemda] = useState(row.kdpemda);
-  const [KDAKUN, setAkun] = useState(row.KDAKUN);
-  const [potongan, setPotongan] = useState(row.potongan);
+  const [kdsatker, setSatker] = useState(row.kdsatker);
+  const [renkas, setRenkas] = useState(row.renkas);
 
   const handleUpdate = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/transaksi?id=" + row.id, {
+      const response = await fetch("/api/renkas?id=" + row.id, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          thang,
           periode,
+          kdjenis,
           kdkppn,
-          kdpemda,
-          potongan,
-          KDAKUN,
+          kdsatker,
+          renkas,
         }),
       });
 
@@ -77,26 +75,26 @@ export const UpdateData = ({ row }: { row: typePotongan }) => {
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  Update Data Potongan DBH
+                  Update Data Renkas Bulanan
                 </ModalHeader>
                 <ModalBody>
                   <div className="flex flex-row gap-4">
                     <Input
                       isDisabled
                       size="sm"
-                      label="Tahun"
-                      name="thang"
-                      value={thang}
-                      placeholder="Pilih tahun"
-                      onChange={(e) => setThang(e.target.value)}
+                      label="Periode"
+                      name="Periode"
+                      value={periode}
+                      placeholder="Pilih periode"
+                      onChange={(e) => setPeriode(e.target.value)}
                     />
                     <Input
                       isDisabled
                       size="sm"
-                      label="Periode"
-                      name="periode"
-                      value={periode}
-                      onChange={(e) => setPeriode(e.target.value)}
+                      label="Jenis"
+                      name="jenis"
+                      value={kdjenis}
+                      onChange={(e) => setJenis(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-row gap-4">
@@ -112,30 +110,20 @@ export const UpdateData = ({ row }: { row: typePotongan }) => {
                     <Input
                       isDisabled
                       size="sm"
-                      label="Pemda"
-                      name="pemda"
-                      value={kdpemda}
-                      placeholder="Pilih pemda"
-                      onChange={(e) => setPemda(e.target.value)}
+                      label="Satker"
+                      name="satker"
+                      value={kdsatker}
+                      placeholder="Pilih satker"
+                      onChange={(e) => setSatker(e.target.value)}
                     />
                   </div>
                   <Input
-                    isDisabled
                     size="sm"
                     label="Kode Akun"
                     name="KDAKUN"
-                    value={KDAKUN.toString()}
+                    value={renkas.toString()}
                     placeholder="Pilih AKUN"
-                    onChange={(e) => setAkun(parseInt(e.target.value))}
-                  />
-
-                  <Input
-                    aria-label="label for the select"
-                    size="sm"
-                    label="Nilai"
-                    placeholder="Input nilai potongan"
-                    value={potongan.toString()}
-                    onChange={(e) => setPotongan(e.target.value)}
+                    onChange={(e) => setRenkas(parseInt(e.target.value))}
                   />
                 </ModalBody>
                 <ModalFooter>

@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
+import { typeRenkas } from "@/types";
+import { UpdateData } from "./update";
 
-const TabelRenkas = () => {
+const TabelRenkas = ({ renkas }: { renkas: typeRenkas[] }) => {
   return (
     <>
       <div className="flex flex-col">
@@ -60,6 +62,9 @@ const TabelRenkas = () => {
                         Bulan
                       </th>
                       <th scope="col" className="px-6 py-4">
+                        Tanggal Submit
+                      </th>
+                      <th scope="col" className="px-6 py-4">
                         Nilai Renkas
                       </th>
                       <th scope="col" className="px-6 py-4">
@@ -68,34 +73,47 @@ const TabelRenkas = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b dark:border-neutral-500">
-                      <td className="px-6 py-4 font-light text-center whitespace-nowrap">
-                        1
-                      </td>
-                      <td className="px-6 py-4 font-light text-center whitespace-nowrap">
-                        107
-                      </td>
-                      <td className="px-6 py-4 font-light text-center whitespace-nowrap">
-                        500012
-                      </td>
-                      <td className="px-6 py-4 font-light text-center whitespace-nowrap">
-                        DAU
-                      </td>
-                      <td className="px-6 py-4 font-light whitespace-nowrap">
-                        Januari
-                      </td>
-                      <td className="px-6 py-4 font-light whitespace-nowrap">
-                        Rp100.500.901,00
-                      </td>
-                      <td className="flex flex-row gap-3 px-6 py-4 whitespace-nowrap">
-                        <Button size="sm" color="warning">
-                          Ubah
-                        </Button>
-                        <Button size="sm" color="danger">
-                          Hapus
-                        </Button>
-                      </td>
-                    </tr>
+                    {renkas.map((row: any, i: number) => (
+                      <tr key={i} className="border-b dark:border-neutral-500">
+                        <td className="px-6 py-4 font-light text-center whitespace-nowrap">
+                          {i + 1}
+                        </td>
+                        <td className="px-6 py-4 font-light text-center whitespace-nowrap">
+                          {row.kdkppn}
+                        </td>
+                        <td className="px-6 py-4 font-light text-center whitespace-nowrap">
+                          {row.kdsatker}
+                        </td>
+                        <td className="px-6 py-4 font-light text-center whitespace-nowrap">
+                          {row.Alokasi_tkd.nmjenis}
+                        </td>
+                        <td className="px-6 py-4 font-light text-center whitespace-nowrap">
+                          {row.periode}
+                        </td>
+                        <td className="px-6 py-4 font-light whitespace-nowrap">
+                          {new Date(row.updatedAt).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZoneName: "short",
+                          })}
+                        </td>
+                        <td className="px-6 py-4 font-light whitespace-nowrap">
+                          {Number(row.renkas).toLocaleString("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                          })}
+                        </td>
+                        <td className="flex flex-row gap-3 px-6 py-4 whitespace-nowrap">
+                          <UpdateData row={row} />
+                          <Button size="sm" color="danger">
+                            Hapus
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

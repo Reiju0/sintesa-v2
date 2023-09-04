@@ -39,3 +39,32 @@ POST http://localhost:3000/api/transaksi
           "potongan" : "",
           "KDAKUN" : ""
 }
+
+###
+# Test Response API Renkas
+POST http://localhost:3000/api/renkas
+
+{
+          "kdsatker"  : "500213", 
+          "kdkppn" : "104", 
+          "kdjenis" : "01",
+          "periode" : "01", 
+          "renkas" : 899000
+}
+
+###
+GET http://localhost:3000/api/renkas
+
+###
+PUT http://localhost:3000/api/renkas?id=5
+
+{
+          "kdsatker"  : "500213", 
+          "kdkppn" : "104", 
+          "kdjenis" : "01",
+          "periode" : "01", 
+          "renkas" : 499000
+}
+
+###
+DELETE http://localhost:3000/api/renkas?id=4

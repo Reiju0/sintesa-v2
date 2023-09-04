@@ -12,10 +12,10 @@ export type typePotongan = {
     kdpemda: string;
     kdkppn: string;
     periode: string;
-    potongan: Decimal;
+    potongan: string;
     createdAt: Date | null;
     updatedAt: Date | null;
-    KDAKUN: number;
+    KDAKUN: Number;
     transaksi:{
       id: number;
       thang: string;
@@ -49,19 +49,6 @@ export type typeTransaksi = {
 
 }
 
-export type typeReferensi = {
-    kdkabkota: string | null;
-    nmkabkota: string | null;
-    kdkppn: string | null;
-    nmkppn: string | null;
-    kdkanwil: string | null;
-}
-
-export type typeAkun = {
-    kdakun: string;
-    nmakun: string;
-}
-
 export type typeBrand = {
   id: number;
   nama: string;
@@ -72,4 +59,16 @@ export type typeProduk = {
   nmproduk: string;
   harga: number;
   brandId: number;
+}
+
+export type typeRenkas = {
+  id: number;
+  kdsatker: string;
+  kdkppn: string;
+  kdjenis: string;
+  periode: string;
+  renkas: Number;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  Alokasi_tkd : {}
 }

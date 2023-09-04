@@ -1,37 +1,39 @@
 import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { typePotongan } from "@/types";
+import { typeRenkas } from "@/types";
 
 const prisma = new PrismaClient();
 
 //read join tabel transaksi dan potongan
 export const GET = async (req: NextRequest) => {
-  const dataPotongan = await prisma.potongan.findMany({
+  const dataRenkas = await prisma.renkas.findMany({
     select: {
       id: true,         
-      thang: true,
-      periode: true,
+      kdsatker: true,
       kdkppn: true,
-      kdpemda: true,                              
-      KDAKUN: true,
-      potongan: true,
-      transaksi: true,
+      kdjenis: true,                              
+      periode: true,
+      renkas: true,
+      createdAt: true,
+      updatedAt: true,
+      Alokasi_tkd: true,
     },
   });
-    return NextResponse.json(dataPotongan);
+    return NextResponse.json(dataRenkas);
   };
 
 export const POST = async (req: Request, res: NextResponse) => {
   if(req.method === "POST"){
     try {
-      const body : typePotongan = await req.json()
+      const body : typeRenkas = await req.json()
       //validasi 1
-      const existingData = await prisma.potongan.findFirst({
+      const existingData = await prisma.renkas.findFirst({
           where: {
-            periode: body.periode,
-            kdkppn: body.kdkppn,
-            kdpemda: body.kdpemda,
-          },
+              kdsatker: body.kdsatker,
+              kdkppn: body.kdkppn,
+              kdjenis: body.kdjenis,
+              periode: body.periode,
+          },    
         });
   
       if (existingData) {
@@ -40,23 +42,22 @@ export const POST = async (req: Request, res: NextResponse) => {
         
       }
       //validasi 2
-      if (!body.thang || !body.periode || !body.kdkppn || !body.kdpemda || !body.potongan || !body.KDAKUN) {
+      if (!body.kdsatker || !body.kdkppn || !body.kdjenis || !body.periode ) {
         console.log("semua kolom harus diisi!")
         return NextResponse.json({ message: 'Semua kolom data harus diisi.' }, {status : 404})
       }
 
-      console.log("Data yang diterima:", body);
-      const dataPotongan = await prisma.potongan.create({
+      console.log("Data diterima:", body);
+      const dataRenkas = await prisma.renkas.create({
         data : {
-          thang  : body.thang, 
-          periode : body.periode,
-          kdkppn : body.kdkppn,
-          kdpemda : body.kdpemda, 
-          potongan : Number(body.potongan), 
-          KDAKUN : Number(body.KDAKUN), 
+            kdsatker: body.kdsatker,
+            kdkppn: body.kdkppn,
+            kdjenis: body.kdjenis,
+            periode: body.periode, 
+          renkas : Number(body.renkas)
         }
       })
-        return NextResponse.json(dataPotongan, {status : 201});
+        return NextResponse.json(dataRenkas, {status : 201});
       } catch (err) {
       console.error(err);
       return NextResponse.json({msg : "terjadi kesalahan menambahkan data!"})
@@ -66,23 +67,22 @@ export const POST = async (req: Request, res: NextResponse) => {
     }
   }
 
-  export const PUT = async (req : NextRequest, res : NextResponse) => {
+export const PUT = async (req : NextRequest, res : NextResponse) => {
     if (req.method === "PUT"){
         try {
             const url = new URL(req.url).searchParams;
             const id = Number(url.get("id")) || 0;
-            const body : typePotongan = await req.json()
-            const updateData = await prisma.potongan.update({
+            const body : typeRenkas = await req.json()
+            const updateData = await prisma.renkas.update({
                 where : {
                     id : id
                 }, 
                 data : {
-                  thang    : body.thang, 
-                  periode  : body.periode,
-                  kdkppn : body.kdkppn,
-                  kdpemda : body.kdpemda, 
-                  potongan : Number(body.potongan), 
-                  KDAKUN : Number(body.KDAKUN), 
+                    kdsatker: body.kdsatker,
+                    kdkppn: body.kdkppn,
+                    kdjenis: body.kdjenis,
+                    periode: body.periode, 
+                  renkas : Number(body.renkas)
                 }
             })
             console.log("data berhasil di update");
@@ -101,7 +101,7 @@ export const DELETE = async (req : NextRequest, res : NextResponse) => {
           const url = new URL(req.url).searchParams;
           const id = Number(url.get("id")) || 0;
 
-          const deleteData = await prisma.potongan.delete({
+          const deleteData = await prisma.renkas.delete({
               where : {
                   id : id
               }

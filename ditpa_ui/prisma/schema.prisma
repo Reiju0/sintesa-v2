@@ -48,7 +48,7 @@ model potongan {
   periode   String    @db.Char(4)
   potongan  Decimal   @db.Decimal(18, 2)
   createdAt DateTime? @default(now()) @db.DateTime(0)
-  updatedAt DateTime? @db.DateTime(0)
+  updatedAt DateTime? @updatedAt
   KDAKUN    Int
   transaksi transaksi @relation(fields: [kdpemda, kdkppn, periode], references: [kdpemda, kdkppn, periode])
 
@@ -114,35 +114,32 @@ model Produk {
 }
 
 model Alokasi_tkd {
-  id              Int       @id @default(autoincrement())
-  kdsatker        String    @db.Char(6)
-  kdkppn          String    @db.Char(3)
-  nmkppn          String    @db.VarChar(255)
-  kdjenis         String    @db.Char(4)
-  nmjenis         String    @db.Char(128)
-  periode         String    @db.Char(2)
-  nmperiode       String    @db.Char(128)
-  alokasi_periode Decimal   @db.Decimal(18, 2)
-  alokasi_total   Decimal   @db.Decimal(18, 2)
-  createdAt       DateTime? @default(now()) @db.DateTime(0)
-  updatedAt       DateTime? @db.DateTime(0)
-  renkas          Renkas[]
+  id            Int       @id @default(autoincrement())
+  kdsatker      String    @db.Char(6)
+  kdkppn        String    @db.Char(3)
+  nmkppn        String    @db.VarChar(255)
+  kdjenis       String    @db.Char(4)
+  nmjenis       String    @db.Char(128)
+  alokasi_total Decimal   @db.Decimal(18, 2)
+  createdAt     DateTime? @default(now()) @db.DateTime(0)
+  updatedAt     DateTime? @updatedAt
+  renkas        Renkas[]
 
-  @@unique([kdsatker, kdkppn, kdjenis, periode])
+  @@unique([kdsatker, kdkppn, kdjenis])
   @@map("Alokasi_tkd")
 }
 
 model Renkas {
-  id           Int         @id @default(autoincrement())
-  kdsatker     String      @db.Char(6)
-  kdkppn       String      @db.Char(3)
-  kdjenis      String      @db.Char(4)
-  periode      String      @db.Char(2)
-  nilai_renkas Decimal     @db.Decimal(18, 2)
-  createdAt    DateTime?   @default(now()) @db.DateTime(0)
-  updatedAt    DateTime?   @db.DateTime(0)
-  Alokasi_tkd  Alokasi_tkd @relation(fields: [kdsatker, kdkppn, kdjenis, periode], references: [kdsatker, kdkppn, kdjenis, periode])
+  id          Int         @id @default(autoincrement())
+  kdsatker    String      @db.Char(6)
+  kdkppn      String      @db.Char(3)
+  kdjenis     String      @db.Char(4)
+  periode     String      @db.Char(2)
+  renkas      Decimal     @db.Decimal(18, 2)
+  createdAt   DateTime?   @default(now()) @db.DateTime(0)
+  updatedAt   DateTime?   @updatedAt
+  Alokasi_tkd Alokasi_tkd @relation(fields: [kdsatker, kdkppn, kdjenis], references: [kdsatker, kdkppn, kdjenis])
 
-  @@index([kdsatker, kdkppn, kdjenis, periode])
+  @@index([kdsatker, kdkppn, kdjenis])
   @@map("Renkas")
 }
